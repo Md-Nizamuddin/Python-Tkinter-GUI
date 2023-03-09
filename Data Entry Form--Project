@@ -1,0 +1,137 @@
+from tkinter import *
+
+#import ttk module for using Combobox
+from tkinter import ttk
+
+#importing messagebox for further usage
+import tkinter.messagebox as msb
+
+#assigned window name as root
+root=Tk()
+root.title("Data Entry Form")
+
+#geometry refers to window size ("Height x Breadth")
+root.geometry("520x360")
+
+#Function called in Submit Data Button
+def submit():
+
+    #if the Terms & Conitions are "Not Accepted" by the user the form will not be submitted
+    if accept_var.get()=="Not Accepted":
+        msb.showwarning(title="Error", message="Please Accept the Terms & Conditions!")
+
+    else:
+
+        #Declaring the First and Last Name as Compulsory parameters for submission
+        if first_entry.get() and last_entry.get():
+
+            #writing data as CSV(Comma Separated Values) as a file in D: directory named as records.txt
+            with open("records.txt","a+") as f:
+                f.write(f"""\n{first_entry.get(), last_entry.get(), title_entry.get(), age_entry.get(), 
+                    nationality_entry.get(), reg_status_var.get(), completed_entry.get(), semester_entry.get(),
+                        accept_var.get()}""")
+            
+            #Info as a dialog box for successful submission
+            msb.showinfo(title="Submitted", message="Your Data is successfully submitted")
+            root.quit()
+
+        else:
+            #Warning displayed for blank Names
+            msb.showwarning(title="Empty Name", message="Please Fill First Name & Last Name")
+
+    
+#Making of whole window as a frame
+frame=Frame(root)
+frame.pack()
+
+
+#1st Label frame with row=0 column=0
+userinfo=LabelFrame(frame, text="User Information")
+userinfo.grid(row=0,column=0)
+
+#Different fields input for userinfo
+first_name=Label(userinfo, text="First Name")
+first_name.grid(row=0, column=0)
+
+first_entry=Entry(userinfo)
+first_entry.grid(row=1, column=0)
+
+last_name=Label(userinfo, text="Last Name")
+last_name.grid(row=0, column=1)
+
+last_entry=Entry(userinfo)
+last_entry.grid(row=1, column=1)
+
+title=Label(userinfo, text="Title")
+title.grid(row=0, column=3)
+
+title_entry=ttk.Combobox(userinfo, values=["", "Mr.", "Ms.", "Dr."])
+title_entry.grid(row=1, column=3)
+
+age=Label(userinfo, text="Age")
+age.grid(row=2, column=0)
+
+age_entry=Spinbox(userinfo, from_=18, to=110)
+age_entry.grid(row=3, column=0)
+
+nationality=Label(userinfo, text="Nationality")
+nationality.grid(row=2, column=1)
+
+nationality_entry=ttk.Combobox(userinfo, values=["Asia", "America", "Europe", "Asia", "Australia"])
+nationality_entry.grid(row=3, column=1)
+
+#loop used for giving padding to all the widgets in both directions
+for widget in userinfo.winfo_children():
+    widget.grid_configure(padx=10, pady=5)
+
+
+#2nd Label frame with row=1 column=0
+courses=LabelFrame(frame)
+courses.grid(row=1, column=0, sticky="news",padx=20, pady=20)
+
+registration=Label(courses, text="Registartion Status")
+registration.grid(row=0, column=0)
+
+#creating another variable for taking value for CheckButton
+reg_status_var=StringVar(value="Not Registered")
+registration_check=Checkbutton(courses, text="Currently Registered", variable=reg_status_var, 
+                               onvalue="Registered", offvalue="Not Registered")
+registration_check.grid(row=1, column=0)
+
+
+completed_course=Label(courses, text="Completed Course")
+completed_course.grid(row=0, column=1)
+
+completed_entry=Spinbox(courses, from_=1, to=100)
+completed_entry.grid(row=1, column=1)
+
+semester=Label(courses, text="No. of Semesters")
+semester.grid(row=0, column=2)
+
+semester_entry=Spinbox(courses, from_=1, to=8)
+semester_entry.grid(row=1, column=2)
+
+#loop used for giving padding to all the widgets in both directions
+for widget in courses.winfo_children():
+    widget.grid_configure(padx=13, pady=6)
+
+
+#3rd Label frame with row=2 column=0
+tnc=LabelFrame(frame, text="Terms & Conditions")
+tnc.grid(row=2, column=0, sticky="news",padx=20, pady=3)
+
+
+#creating another variable for taking value for CheckButton
+accept_var=StringVar(value="Not Accepted")
+cond=Checkbutton(tnc, text="I accept the Terms and Conditions", variable=accept_var,
+                 onvalue="Accepted", offvalue="Not Accepted")
+cond.grid(row=0, column=0)
+
+
+#4th Label frame with row=3 column=0
+enter=Button(frame, text="Submit Data",command=submit)
+enter.grid(row=3, column=0, sticky="news", padx=20, pady=20)
+
+root.mainloop()
+
+#GUI created by MD NIZAMUDDIN
