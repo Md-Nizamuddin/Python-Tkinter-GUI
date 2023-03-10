@@ -1,0 +1,77 @@
+from tkinter import *
+import tkinter.messagebox as msb
+
+root=Tk()
+root.geometry("430x270")
+root.title("Contacts")
+frame=Frame(root)
+frame.pack()
+
+frame1=Frame(frame)
+frame1.grid(row=0, column=0)
+
+contact=Label(frame1, text="Contact List")
+contact.grid(row=0, column=0)
+
+contact_entry=Text(frame1, width=15, height=9)
+contact_entry.grid(row=1, column=0)
+
+display=Button(frame1, text="Display Contact")
+display.grid(row=2, column=0)
+
+
+frame2=Frame(frame)
+frame2.grid(row=0, column=1,padx=20)
+
+newcontact=Label(frame2, text="New Contact")
+newcontact.grid(row=0, column=2)
+
+firstname=Label(frame2, text="First Name:")
+firstname.grid(row=1, column=1)
+
+first_entry=Entry(frame2)
+first_entry.grid(row=1, column=2)
+
+lastname=Label(frame2, text="Last Name:")
+lastname.grid(row=2, column=1)
+
+last_entry=Entry(frame2)
+last_entry.grid(row=2, column=2)
+
+phone=Label(frame2, text="Phone #:")
+phone.grid(row=3, column=1)
+
+phone_entry=Entry(frame2)
+phone_entry.grid(row=3, column=2)
+
+friend=Checkbutton(frame2, text="Friend")
+friend.grid(row=4, column=2)
+
+email=Label(frame2, text="Email:")
+email.grid(row=5, column=1)
+
+email_entry=Entry(frame2)
+email_entry.grid(row=5, column=2)
+
+bday=Label(frame2, text="Birthday:")
+bday.grid(row=6, column=1)
+
+bday_entry=Entry(frame2)
+bday_entry.grid(row=6, column=2)
+
+addcontact=Button(frame2, text="Add Contact")
+addcontact.grid(row=7, column=2)
+
+frame3=Frame(frame)
+frame3.grid(row=1, pady=15)
+
+lastname_search=Label(frame3, text="Last Name:")
+lastname_search.grid(row=0, column=0)
+
+lastsearch_entry=Entry(frame3)
+lastsearch_entry.grid(row=0, column=1)
+
+search=Button(frame3,text="Search")
+search.grid(row=1, column=1, pady=10)
+
+root.mainloop()
